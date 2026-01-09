@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hackathon Voting System
+
+A real-time, interactive voting platform for hackathons. This system allows administrators to manage events and teams, while providing a seamless voting experience for the audience via QR codes and a mobile-friendly interface.
+
+## Features
+
+### 🌟 Admin Portal
+- **Dashboard**: Centralized hub for event management.
+- **Event Setup**: Configure event details, voting points for audience and judges.
+- **Team Management**: Add, edit, and manage participating teams and projects.
+- **QR Code Generation**: Instantly generate QR codes for audience login.
+- **Live Monitoring**: View real-time voting progress.
+
+### 🗳️ Audience Portal
+- **Simple Login**: Quick access via Name and Email (QR code supported).
+- **Interactive Voting**: Browse project cards and allocate points.
+- **Real-time Balance**: Live tracking of remaining voting points.
+- **Glassmorphic UI**: Modern, responsive, and visually appealing design.
+
+### 🏆 Leaderboard
+- **Live Rankings**: Real-time updates of team standings.
+- **Dynamic Sorting**: Teams automatically reordered based on vote counts.
+- **Public View**: Accessible to everyone on a large screen or personal device.
+
+## Tech Stack
+- **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS (with Glassmorphism)
+- **Database**: SQLite (via Prisma ORM)
+- **Data Fetching**: SWR (Stale-While-Revalidate)
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+- Node.js 18 or higher
+- npm
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Installation
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd Hackathon_Voting_System
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. **Initialize the Database**
+   ```bash
+   npx prisma generate
+   npx prisma migrate dev --name init
+   ```
 
-## Learn More
+4. **Start the Development Server**
+   ```bash
+   npm run dev
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+5. **Open the App**
+   Visit `http://localhost:3000` (or `3001` if 3000 is busy).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Usage Guide
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Admin Access
+1. Navigate to `/admin`.
+2. Enter the passcode: `admin123`.
+3. Use the dashboard to set up your event and add teams.
 
-## Deploy on Vercel
+### Audience Voting
+1. Scan the QR code generated in the Admin Portal or go to `/login`.
+2. Enter your Name and Email to join.
+3. Browse teams on the dashboard and allocate your points.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Viewing Results
+1. Navigate to `/leaderboard` for the public results view.
