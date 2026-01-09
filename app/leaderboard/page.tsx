@@ -45,7 +45,10 @@ export default function Leaderboard() {
                                     #{index + 1}
                                 </div>
                                 <div>
-                                    <h2 className={`font-bold ${isFirst ? 'text-2xl text-yellow-500' : 'text-xl'}`}>
+                                    <h2 className={`font-bold ${index === 0 ? 'text-2xl text-yellow-500' :
+                                            index === 1 ? 'text-xl text-gray-300' :
+                                                index === 2 ? 'text-xl text-orange-500' : 'text-xl text-white'
+                                        }`}>
                                         {team.name}
                                     </h2>
                                     <p className="text-gray-200 text-sm hidden md:block">{team.description}</p>

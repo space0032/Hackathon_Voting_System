@@ -29,7 +29,7 @@ export default function VoteDashboard() {
     const { data: userData } = useSWR(user ? `/api/user/${user.id}` : null, fetcher, { refreshInterval: 2000 });
 
     const [votingFor, setVotingFor] = useState<string | null>(null);
-    const [pointsToGive, setPointsToGive] = useState(1);
+    const [pointsToGive, setPointsToGive] = useState<number | string>(1);
 
     const totalPoints = event ? (user?.role === 'JUDGE' ? event.judgePoints : event.audiencePoints) : 0;
     // Use userData if available (live updates), else fall back to initial user state
@@ -113,7 +113,7 @@ export default function VoteDashboard() {
             {votingFor && (
                 <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
                     <div className="glass-card max-w-sm w-full animate-float" style={{ animationDuration: '0s' }}>
-                        <h3 className="text-xl font-bold mb-4">Cast Vote</h3>
+                        <h3 className="text-xl font-bold mb-4 text-white">Cast Vote</h3>
                         <p className="text-gray-100 mb-6 text-sm">
                             How many points do you want to give to this team? (Max: {remainingPoints})
                         </p>
@@ -125,12 +125,14 @@ export default function VoteDashboard() {
                                 max={remainingPoints}
                                 value={pointsToGive}
                                 onChange={(e) => {
-                                    const val = parseInt(e.target.value);
-                                    if (!isNaN(val)) {
-                                        // Allow empty string temporarily or clamp? 
-                                        // Better to just set it, clamping on submit or blur might be better UX, 
-                                        // but for now let's just properly set it and limit max visual
-                                        setPointsToGive(val);
+                                    const val = e.target.value;
+                                    if (val === '') {
+                                        setPointsToGive('');
+                                    } else {
+                                        const num = parseInt(val);
+                                        if (!isNaN(num)) {
+                                            setPointsToGive(num);
+                                        }
                                     }
                                 }}
                                 className="w-full bg-white/5 border border-white/10 rounded-lg p-4 text-center text-3xl font-bold font-mono text-white outline-none focus:border-primary transition-colors"
@@ -140,7 +142,7 @@ export default function VoteDashboard() {
                         <div className="flex gap-4">
                             <button
                                 onClick={() => setVotingFor(null)}
-                                className="flex-1 py-3 rounded bg-transparent border border-white/20 hover:bg-white/5"
+                                className="flex-1 py-3 rounded bg-transparent border border-white/20 hover:bg-white/5 text-white"
                             >
                                 Cancel
                             </button>

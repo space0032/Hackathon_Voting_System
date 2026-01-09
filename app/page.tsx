@@ -9,7 +9,7 @@ export default function Home() {
 
       <div className="glass-card max-w-2xl w-full p-12 z-10 animate-float" style={{ animationDuration: '8s' }}>
         <h1 className="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-secondary mb-6">
-          HackVote
+          HackSprint
         </h1>
         <p className="text-xl text-gray-300 mb-10">
           The Future of Hackathon Judging. <br />
