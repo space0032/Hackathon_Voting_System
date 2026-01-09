@@ -11,7 +11,7 @@ export default function AdminLogin() {
 
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
-        if (passcode === 'admin123') { // Simple hardcode for demo
+        if (passcode === 'cooldude69') { // Simple hardcode for demo
             // In a real app we'd set a cookie/session
             // Here we just redirect to the dashboard
             sessionStorage.setItem('admin_auth', 'true');
