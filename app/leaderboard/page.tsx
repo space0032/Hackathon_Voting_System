@@ -38,7 +38,7 @@ export default function Leaderboard() {
                             <div className="flex items-center gap-6">
                                 <div className={`
                   w-12 h-12 flex items-center justify-center rounded-full font-bold text-xl
-                  ${isFirst ? 'bg-yellow-500 text-black' :
+                  ${isFirst ? 'bg-yellow-500 text-f' :
                                         index === 1 ? 'bg-gray-300 text-black' :
                                             index === 2 ? 'bg-orange-600 text-white' : 'bg-white/10 text-gray-400'}
                 `}>
@@ -48,12 +48,15 @@ export default function Leaderboard() {
                                     <h2 className={`font-bold ${isFirst ? 'text-2xl text-yellow-500' : 'text-xl'}`}>
                                         {team.name}
                                     </h2>
-                                    <p className="text-gray-400 text-sm hidden md:block">{team.description}</p>
+                                    <p className="text-gray-200 text-sm hidden md:block">{team.description}</p>
                                 </div>
                             </div>
 
                             <div className="text-right">
-                                <div className="text-3xl font-bold font-mono">
+                                <div className={`text-3xl font-bold font-mono ${index === 0 ? 'text-yellow-500' :
+                                    index === 1 ? 'text-gray-300' :
+                                        index === 2 ? 'text-orange-500' : 'text-white'
+                                    }`}>
                                     {team.totalPoints || 0}
                                 </div>
                                 <div className="text-xs text-gray-500 uppercase tracking-widest">Points</div>
