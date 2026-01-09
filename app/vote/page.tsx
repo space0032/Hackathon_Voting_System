@@ -148,7 +148,10 @@ export default function VoteDashboard() {
                             </button>
                             <button
                                 onClick={handleVote}
-                                disabled={pointsToGive > remainingPoints || pointsToGive <= 0}
+                                disabled={
+                                    (typeof pointsToGive === 'number' && (pointsToGive > remainingPoints || pointsToGive <= 0)) ||
+                                    pointsToGive === ''
+                                }
                                 className="flex-1 py-3 rounded bg-gradient-to-r from-primary to-accent font-bold disabled:opacity-50"
                             >
                                 Confirm Vote
