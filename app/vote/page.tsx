@@ -73,7 +73,7 @@ export default function VoteDashboard() {
                     <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
                         {event.name}
                     </h1>
-                    <p className="text-xs text-gray-400">Welcome, {user.name}</p>
+                    <p className="text-xs text-gray-100">Welcome, {user.name}</p>
                 </div>
                 <div className="text-right">
                     <div className="text-2xl font-bold font-mono text-secondary">
@@ -87,18 +87,24 @@ export default function VoteDashboard() {
                 {teams?.map((team: any) => (
                     <div key={team.id} className="glass-card flex flex-col justify-between h-full">
                         <div>
-                            <h2 className="text-2xl font-bold mb-2">{team.name}</h2>
-                            <p className="text-gray-400 text-sm mb-4 line-clamp-3">
+                            <h2 className="text-2xl font-bold mb-2 text-white">{team.name}</h2>
+                            <p className="text-gray-100 text-sm mb-4 line-clamp-3">
                                 {team.description || "No description provided."}
                             </p>
                         </div>
 
-                        <button
-                            onClick={() => setVotingFor(team.id)}
-                            className="w-full mt-4 py-2 rounded bg-white/10 hover:bg-white/20 transition-colors border border-white/10"
-                        >
-                            Vote for this Team
-                        </button>
+                        {userData?.votes?.some((v: any) => v.teamId === team.id) ? (
+                            <button disabled className="w-full mt-4 py-2 rounded bg-green-500/20 text-green-400 border border-green-500/50 cursor-not-allowed font-bold">
+                                ✅ Already Voted
+                            </button>
+                        ) : (
+                            <button
+                                onClick={() => setVotingFor(team.id)}
+                                className="w-full mt-4 py-2 rounded bg-white/10 hover:bg-white/20 transition-colors border border-white/10 text-white"
+                            >
+                                Vote for this Team
+                            </button>
+                        )}
                     </div>
                 ))}
             </div>
@@ -108,7 +114,7 @@ export default function VoteDashboard() {
                 <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
                     <div className="glass-card max-w-sm w-full animate-float" style={{ animationDuration: '0s' }}>
                         <h3 className="text-xl font-bold mb-4">Cast Vote</h3>
-                        <p className="text-gray-400 mb-6 text-sm">
+                        <p className="text-gray-100 mb-6 text-sm">
                             How many points do you want to give to this team? (Max: {remainingPoints})
                         </p>
 
@@ -127,7 +133,7 @@ export default function VoteDashboard() {
                                         setPointsToGive(val);
                                     }
                                 }}
-                                className="w-full bg-white/5 border border-white/10 rounded-lg p-4 text-center text-3xl font-bold font-mono text-primary outline-none focus:border-primary transition-colors"
+                                className="w-full bg-white/5 border border-white/10 rounded-lg p-4 text-center text-3xl font-bold font-mono text-white outline-none focus:border-primary transition-colors"
                             />
                         </div>
 

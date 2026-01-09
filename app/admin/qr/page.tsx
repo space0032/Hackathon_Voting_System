@@ -15,17 +15,21 @@ export default function QRGenerator() {
         QRCode.toDataURL(url, { width: 400, margin: 2, color: { dark: '#000', light: '#FFF' } })
             .then(setQrUrl)
             .catch(console.error);
+
+        // Auth Check
+        const auth = sessionStorage.getItem('admin_auth');
+        if (auth !== 'true') window.location.href = '/admin'; // fallback if no router
     }, []);
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center">
-            <Link href="/admin/dashboard" className="absolute top-6 left-6 text-gray-400 hover:text-white">
+            <Link href="/admin/dashboard" className="absolute top-6 left-6 text-gray-300 hover:text-white">
                 ← Back to Dashboard
             </Link>
 
-            <div className="glass-card p-10 bg-white text-black max-w-lg w-full">
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">Join the Voting!</h1>
-                <p className="text-gray-600 mb-8">Scan to vote for your favorite project.</p>
+            <div className="glass-card p-10 max-w-lg w-full">
+                <h1 className="text-3xl font-bold text-white mb-2">Join the Voting!</h1>
+                <p className="text-gray-100 mb-8">Scan to vote for your favorite project.</p>
 
                 {qrUrl ? (
                     <div className="flex justify-center mb-6">

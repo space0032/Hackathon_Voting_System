@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import useSWR, { mutate } from 'swr';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -14,6 +14,12 @@ export default function TeamManagement() {
 
     const [newTeam, setNewTeam] = useState({ name: '', description: '' });
     const [isAdding, setIsAdding] = useState(false);
+
+    // Auth Check
+    useEffect(() => {
+        const auth = sessionStorage.getItem('admin_auth');
+        if (auth !== 'true') router.push('/admin');
+    }, [router]);
 
     const handleAddTeam = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -40,7 +46,7 @@ export default function TeamManagement() {
         <div className="min-h-screen p-6 container mx-auto">
             <div className="flex justify-between items-center mb-8">
                 <div>
-                    <Link href="/admin/dashboard" className="text-sm text-gray-500 hover:text-white mb-2 inline-block">← Back to Dashboard</Link>
+                    <Link href="/admin/dashboard" className="text-sm text-gray-300 hover:text-white mb-2 inline-block">← Back to Dashboard</Link>
                     <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-secondary to-primary">
                         Manage Teams
                     </h1>
@@ -55,24 +61,24 @@ export default function TeamManagement() {
 
             {isAdding && (
                 <div className="glass-card mb-8 animate-float" style={{ animationDuration: '0s' }}>
-                    <h2 className="text-xl font-bold mb-4">Add New Team</h2>
+                    <h2 className="text-xl font-bold mb-4 text-white">Add New Team</h2>
                     <form onSubmit={handleAddTeam} className="flex flex-col md:flex-row gap-4 items-end">
                         <div className="flex-1 w-full">
-                            <label className="block text-sm mb-1 text-gray-400">Team/Project Name</label>
+                            <label className="block text-sm mb-1 text-gray-100">Team/Project Name</label>
                             <input
                                 required
                                 value={newTeam.name}
                                 onChange={(e) => setNewTeam({ ...newTeam, name: e.target.value })}
-                                className="w-full bg-white/5 border border-white/10 rounded p-2 focus:border-primary outline-none"
+                                className="w-full bg-white/5 border border-white/10 rounded p-2 focus:border-primary outline-none text-white"
                                 placeholder="e.g. Team Alpha"
                             />
                         </div>
                         <div className="flex-[2] w-full">
-                            <label className="block text-sm mb-1 text-gray-400">Description (Optional)</label>
+                            <label className="block text-sm mb-1 text-gray-100">Description (Optional)</label>
                             <input
                                 value={newTeam.description}
                                 onChange={(e) => setNewTeam({ ...newTeam, description: e.target.value })}
-                                className="w-full bg-white/5 border border-white/10 rounded p-2 focus:border-primary outline-none"
+                                className="w-full bg-white/5 border border-white/10 rounded p-2 focus:border-primary outline-none text-white"
                                 placeholder="One line pitch..."
                             />
                         </div>
@@ -85,15 +91,15 @@ export default function TeamManagement() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {teams && teams.length === 0 && (
-                    <div className="col-span-full text-center py-10 text-gray-500">
+                    <div className="col-span-full text-center py-10 text-gray-300">
                         No teams added yet. Click "Add New Team" to start.
                     </div>
                 )}
 
                 {teams?.map((team: any) => (
                     <div key={team.id} className="glass-card border-l-4 border-l-secondary">
-                        <h3 className="text-xl font-bold mb-2">{team.name}</h3>
-                        <p className="text-gray-400 mb-4 text-sm">{team.description || 'No description'}</p>
+                        <h3 className="text-xl font-bold mb-2 text-white">{team.name}</h3>
+                        <p className="text-gray-200 mb-4 text-sm">{team.description || 'No description'}</p>
                         <div className="text-xs bg-white/5 inline-block px-2 py-1 rounded text-gray-300">
                             Votes Received: {team._count?.votes || 0}
                         </div>

@@ -3,12 +3,21 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
+import { useRouter } from 'next/navigation';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function AdminDashboard() {
     const { data: event, error, isLoading } = useSWR('/api/event', fetcher);
     const [loading, setLoading] = useState(false);
+    const router = useRouter();
+    // Auth Check
+    useEffect(() => {
+        const auth = sessionStorage.getItem('admin_auth');
+        if (auth !== 'true') {
+            router.push('/admin');
+        }
+    }, [router]);
 
     if (error) return <div className="text-red-500">Failed to load event data</div>;
     if (isLoading) return <div className="text-center p-10">Loading...</div>;
@@ -31,7 +40,7 @@ export default function AdminDashboard() {
                         <div className="p-3 rounded-full bg-primary/20 text-primary group-hover:scale-110 transition-transform">
                             ⚙️
                         </div>
-                        <h2 className="text-xl font-bold">Event Setup</h2>
+                        <h2 className="text-xl font-bold text-white">Event Setup</h2>
                     </div>
                     <p className="text-gray-100 text-sm">Create event, set points balance, and configure rules.</p>
                 </Link>
@@ -42,7 +51,7 @@ export default function AdminDashboard() {
                         <div className="p-3 rounded-full bg-secondary/20 text-secondary group-hover:scale-110 transition-transform">
                             👥
                         </div>
-                        <h2 className="text-xl font-bold">Manage Teams</h2>
+                        <h2 className="text-xl font-bold text-white">Manage Teams</h2>
                     </div>
                     <p className="text-gray-100 text-sm">Add, edit, or remove participating teams.</p>
                 </Link>
@@ -53,7 +62,7 @@ export default function AdminDashboard() {
                         <div className="p-3 rounded-full bg-accent/20 text-accent group-hover:scale-110 transition-transform">
                             📱
                         </div>
-                        <h2 className="text-xl font-bold">Audience QR</h2>
+                        <h2 className="text-xl font-bold text-white">Audience QR</h2>
                     </div>
                     <p className="text-gray-100 text-sm">Generate QR code for audience voting access.</p>
                 </Link>
@@ -64,14 +73,14 @@ export default function AdminDashboard() {
                         <div className="p-3 rounded-full bg-green-500/20 text-green-500 group-hover:scale-110 transition-transform">
                             🏆
                         </div>
-                        <h2 className="text-xl font-bold">Live Results</h2>
+                        <h2 className="text-xl font-bold text-white">Live Results</h2>
                     </div>
                     <p className="text-gray-100 text-sm">View real-time voting leaderboard.</p>
                 </Link>
             </div>
 
             <div className="glass-card mt-8">
-                <h3 className="text-lg font-bold mb-4">Quick Actions</h3>
+                <h3 className="text-lg font-bold mb-4 text-white">Quick Actions</h3>
                 <div className="flex gap-4">
                     <button className="px-4 py-2 bg-red-500/20 text-red-400 rounded hover:bg-red-500/30 transition-colors border border-red-500/50">
                         Stop Voting

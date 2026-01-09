@@ -10,8 +10,8 @@ export default function Leaderboard() {
     const { data: teams, error } = useSWR('/api/teams?eventId=current', fetcher, { refreshInterval: 3000 });
     const { data: event } = useSWR('/api/event', fetcher);
 
-    // Sort teams by vote count (assuming API returns them sorted or we sort here)
-    const sortedTeams = teams?.sort((a: any, b: any) => (b._count?.votes || 0) - (a._count?.votes || 0));
+    // Sort teams by total points
+    const sortedTeams = teams?.sort((a: any, b: any) => (b.totalPoints || 0) - (a.totalPoints || 0));
 
     return (
         <div className="min-h-screen p-6">
@@ -54,7 +54,7 @@ export default function Leaderboard() {
 
                             <div className="text-right">
                                 <div className="text-3xl font-bold font-mono">
-                                    {team._count?.votes || 0}
+                                    {team.totalPoints || 0}
                                 </div>
                                 <div className="text-xs text-gray-500 uppercase tracking-widest">Points</div>
                             </div>

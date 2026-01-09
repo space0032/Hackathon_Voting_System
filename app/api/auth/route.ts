@@ -5,6 +5,10 @@ export async function POST(request: Request) {
     try {
         const { name, email } = await request.json();
 
+        if (!email || !name) {
+            return NextResponse.json({ error: 'Name and Email are required' }, { status: 400 });
+        }
+
         // 1. Find active event
         const activeEvent = await prisma.event.findFirst({
             where: { isActive: true },

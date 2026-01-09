@@ -14,6 +14,7 @@ export default function AdminLogin() {
         if (passcode === 'admin123') { // Simple hardcode for demo
             // In a real app we'd set a cookie/session
             // Here we just redirect to the dashboard
+            sessionStorage.setItem('admin_auth', 'true');
             router.push('/admin/dashboard');
         } else {
             alert('Invalid Passcode');
@@ -32,7 +33,7 @@ export default function AdminLogin() {
                         placeholder="Enter Admin Passcode"
                         value={passcode}
                         onChange={(e) => setPasscode(e.target.value)}
-                        className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 outline-none focus:border-primary transition-colors text-center text-xl"
+                        className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 outline-none focus:border-primary transition-colors text-center text-xl text-white"
                     />
                     <button
                         type="submit"

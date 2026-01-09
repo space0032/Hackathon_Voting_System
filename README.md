@@ -65,9 +65,7 @@ A real-time, interactive voting platform for hackathons. This system allows admi
 ## Usage Guide
 
 ### Admin Access
-1. Navigate to `/admin`.
-2. Enter the passcode: `admin123`.
-3. Use the dashboard to set up your event and add teams.
+   For Admin Access Contact Me.
 
 ### Audience Voting
 1. Scan the QR code generated in the Admin Portal or go to `/login`.

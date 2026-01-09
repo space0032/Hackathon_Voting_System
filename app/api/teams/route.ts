@@ -26,10 +26,19 @@ export async function GET(request: Request) {
         const teams = await prisma.team.findMany({
             where: { eventId: targetEventId },
             orderBy: { createdAt: 'desc' },
-            include: { _count: { select: { votes: true } } }
+            include: {
+                _count: { select: { votes: true } },
+                votes: { select: { points: true } }
+            }
         });
 
-        return NextResponse.json(teams);
+        // Calculate total points from votes
+        const teamsWithPoints = teams.map((team) => ({
+            ...team,
+            totalPoints: team.votes.reduce((sum, vote) => sum + (vote.points || 0), 0)
+        }));
+
+        return NextResponse.json(teamsWithPoints);
     } catch (error) {
         console.error('Teams API Error:', error);
         return NextResponse.json({ error: 'Failed to fetch teams' }, { status: 500 });

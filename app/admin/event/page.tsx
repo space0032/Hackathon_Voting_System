@@ -17,6 +17,12 @@ export default function EventSetup() {
     });
     const [loading, setLoading] = useState(false);
 
+    // Auth Check
+    useEffect(() => {
+        const auth = sessionStorage.getItem('admin_auth');
+        if (auth !== 'true') router.push('/admin');
+    }, [router]);
+
     useEffect(() => {
         if (event && !event.error) {
             setFormData({
@@ -63,42 +69,42 @@ export default function EventSetup() {
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
-                        <label className="block text-sm font-medium mb-2 text-gray-300">Event Name</label>
+                        <label className="block text-sm font-medium mb-2 text-gray-100">Event Name</label>
                         <input
                             type="text"
                             required
                             value={formData.name}
                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                            className="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:border-primary outline-none transition-colors"
+                            className="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:border-primary outline-none transition-colors text-white"
                             placeholder="e.g. Hackathon 2026"
                         />
                     </div>
 
                     <div className="grid grid-cols-2 gap-6">
                         <div>
-                            <label className="block text-sm font-medium mb-2 text-gray-300">Audience Points</label>
+                            <label className="block text-sm font-medium mb-2 text-gray-100">Audience Points</label>
                             <input
                                 type="number"
                                 required
                                 min="1"
                                 value={formData.audiencePoints}
                                 onChange={(e) => setFormData({ ...formData, audiencePoints: parseInt(e.target.value) })}
-                                className="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:border-primary outline-none transition-colors"
+                                className="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:border-primary outline-none transition-colors text-white"
                             />
-                            <p className="text-xs text-gray-500 mt-1">Points each audience member gets to distribute.</p>
+                            <p className="text-xs text-gray-300 mt-1">Points each audience member gets to distribute.</p>
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium mb-2 text-gray-300">Judge Points</label>
+                            <label className="block text-sm font-medium mb-2 text-gray-100">Judge Points</label>
                             <input
                                 type="number"
                                 required
                                 min="1"
                                 value={formData.judgePoints}
                                 onChange={(e) => setFormData({ ...formData, judgePoints: parseInt(e.target.value) })}
-                                className="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:border-primary outline-none transition-colors"
+                                className="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:border-primary outline-none transition-colors text-white"
                             />
-                            <p className="text-xs text-gray-500 mt-1">Points allocated to judges (if applicable).</p>
+                            <p className="text-xs text-gray-300 mt-1">Points allocated to judges (if applicable).</p>
                         </div>
                     </div>
 

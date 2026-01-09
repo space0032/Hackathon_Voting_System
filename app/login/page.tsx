@@ -42,11 +42,11 @@ export default function Login() {
                 <h1 className="text-3xl font-bold mb-2 text-center bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
                     Welcome!
                 </h1>
-                <p className="text-gray-400 text-center mb-8">Enter your details to start voting.</p>
+                <p className="text-gray-100 text-center mb-8">Enter your details to start voting.</p>
 
                 <form onSubmit={handleLogin} className="space-y-6">
                     <div>
-                        <label className="block text-sm mb-2 text-gray-300">Full Name</label>
+                        <label className="block text-sm mb-2 text-gray-100">Full Name</label>
                         <input
                             type="text"
                             required
@@ -58,7 +58,7 @@ export default function Login() {
                     </div>
 
                     <div>
-                        <label className="block text-sm mb-2 text-gray-300">Email Address</label>
+                        <label className="block text-sm mb-2 text-gray-100">Email Address</label>
                         <input
                             type="email"
                             required

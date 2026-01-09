@@ -6,6 +6,7 @@ export async function GET(request: Request, context: { params: { id: string } })
         const id = context.params.id;
         const user = await prisma.user.findUnique({
             where: { id },
+            include: { votes: true }
         });
 
         if (!user) {
