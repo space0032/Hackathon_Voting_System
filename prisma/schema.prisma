@@ -1,0 +1,72 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Event {
+  id              String   @id @default(cuid())
+  name            String
+  totalPoints     Int      @default(100) // Points balance for judges? Or per user?
+  // Let's interpret "Points for audience" as the amount they *get* to spend.
+  audiencePoints  Int      @default(10)
+  judgePoints     Int      @default(50)
+  isActive        Boolean  @default(true)
+  isVotingOpen    Boolean  @default(false)
+  
+  teams           Team[]
+  users           User[]
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Team {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  eventId     String
+  event       Event    @relation(fields: [eventId], references: [id])
+  
+  votes       Vote[]
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  role      String   @default("AUDIENCE") // AUDIENCE, ADMIN, JUDGE
+  eventId   String
+  event     Event    @relation(fields: [eventId], references: [id])
+  
+  // Voting tracking
+  pointsSpent Int    @default(0)
+  votes       Vote[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([email, eventId]) // One email per event
+}
+
+model Vote {
+  id      String @id @default(cuid())
+  points  Int
+  
+  userId  String
+  user    User   @relation(fields: [userId], references: [id])
+  
+  teamId  String
+  team    Team   @relation(fields: [teamId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, teamId]) // One vote per team per user? 
+  // Requirement: "One audiance can give point to team once." -> Yes.
+}
