@@ -19,7 +19,7 @@ export default function AdminDashboard() {
                 <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
                     Admin Dashboard
                 </h1>
-                <div className="text-sm text-gray-400">
+                <div className="text-sm text-gray-100">
                     Event: {event?.name || 'No Event Setup'}
                 </div>
             </header>
@@ -33,7 +33,7 @@ export default function AdminDashboard() {
                         </div>
                         <h2 className="text-xl font-bold">Event Setup</h2>
                     </div>
-                    <p className="text-gray-400 text-sm">Create event, set points balance, and configure rules.</p>
+                    <p className="text-gray-100 text-sm">Create event, set points balance, and configure rules.</p>
                 </Link>
 
                 {/* Team Management Card */}
@@ -44,7 +44,7 @@ export default function AdminDashboard() {
                         </div>
                         <h2 className="text-xl font-bold">Manage Teams</h2>
                     </div>
-                    <p className="text-gray-400 text-sm">Add, edit, or remove participating teams.</p>
+                    <p className="text-gray-100 text-sm">Add, edit, or remove participating teams.</p>
                 </Link>
 
                 {/* QR Code Card */}
@@ -55,7 +55,7 @@ export default function AdminDashboard() {
                         </div>
                         <h2 className="text-xl font-bold">Audience QR</h2>
                     </div>
-                    <p className="text-gray-400 text-sm">Generate QR code for audience voting access.</p>
+                    <p className="text-gray-100 text-sm">Generate QR code for audience voting access.</p>
                 </Link>
 
                 {/* Results Card */}
@@ -66,7 +66,7 @@ export default function AdminDashboard() {
                         </div>
                         <h2 className="text-xl font-bold">Live Results</h2>
                     </div>
-                    <p className="text-gray-400 text-sm">View real-time voting leaderboard.</p>
+                    <p className="text-gray-100 text-sm">View real-time voting leaderboard.</p>
                 </Link>
             </div>
 

@@ -10,8 +10,21 @@ export async function GET(request: Request) {
             return NextResponse.json({ error: 'Event ID required' }, { status: 400 });
         }
 
+        let targetEventId = eventId;
+        if (eventId === 'current') {
+            const activeEvent = await prisma.event.findFirst({
+                where: { isActive: true },
+                select: { id: true }
+            });
+            if (activeEvent) {
+                targetEventId = activeEvent.id;
+            } else {
+                return NextResponse.json({ error: 'No active event found' }, { status: 404 });
+            }
+        }
+
         const teams = await prisma.team.findMany({
-            where: { eventId },
+            where: { eventId: targetEventId },
             orderBy: { createdAt: 'desc' },
             include: { _count: { select: { votes: true } } }
         });
