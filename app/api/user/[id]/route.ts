@@ -14,6 +14,7 @@ export async function GET(request: Request, context: { params: { id: string } })
 
         return NextResponse.json(user);
     } catch (error) {
+        console.error('User API Error:', error);
         return NextResponse.json({ error: 'Failed to fetch user' }, { status: 500 });
     }
 }

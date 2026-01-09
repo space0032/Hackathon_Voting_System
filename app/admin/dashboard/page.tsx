@@ -7,11 +7,11 @@ import useSWR from 'swr';
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function AdminDashboard() {
-    const { data: event, error } = useSWR('/api/event', fetcher);
+    const { data: event, error, isLoading } = useSWR('/api/event', fetcher);
     const [loading, setLoading] = useState(false);
 
     if (error) return <div className="text-red-500">Failed to load event data</div>;
-    if (!event && !error) return <div className="text-center p-10">Loading...</div>;
+    if (isLoading) return <div className="text-center p-10">Loading...</div>;
 
     return (
         <div className="container mx-auto p-6 space-y-8">

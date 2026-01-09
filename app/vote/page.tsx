@@ -112,20 +112,23 @@ export default function VoteDashboard() {
                             How many points do you want to give to this team? (Max: {remainingPoints})
                         </p>
 
-                        <div className="flex items-center justify-between mb-8 bg-white/5 rounded-lg p-2">
-                            <button
-                                onClick={() => setPointsToGive(Math.max(1, pointsToGive - 1))}
-                                className="w-10 h-10 rounded bg-white/10 hover:bg-white/20 text-xl font-bold"
-                            >
-                                -
-                            </button>
-                            <span className="text-3xl font-bold font-mono text-primary">{pointsToGive}</span>
-                            <button
-                                onClick={() => setPointsToGive(Math.min(remainingPoints, pointsToGive + 1))}
-                                className="w-10 h-10 rounded bg-white/10 hover:bg-white/20 text-xl font-bold"
-                            >
-                                +
-                            </button>
+                        <div className="mb-8">
+                            <input
+                                type="number"
+                                min="1"
+                                max={remainingPoints}
+                                value={pointsToGive}
+                                onChange={(e) => {
+                                    const val = parseInt(e.target.value);
+                                    if (!isNaN(val)) {
+                                        // Allow empty string temporarily or clamp? 
+                                        // Better to just set it, clamping on submit or blur might be better UX, 
+                                        // but for now let's just properly set it and limit max visual
+                                        setPointsToGive(val);
+                                    }
+                                }}
+                                className="w-full bg-white/5 border border-white/10 rounded-lg p-4 text-center text-3xl font-bold font-mono text-primary outline-none focus:border-primary transition-colors"
+                            />
                         </div>
 
                         <div className="flex gap-4">

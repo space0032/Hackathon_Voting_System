@@ -18,6 +18,7 @@ export async function GET(request: Request) {
 
         return NextResponse.json(teams);
     } catch (error) {
+        console.error('Teams API Error:', error);
         return NextResponse.json({ error: 'Failed to fetch teams' }, { status: 500 });
     }
 }
